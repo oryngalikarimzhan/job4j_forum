@@ -8,23 +8,24 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.service.ForumService;
+import ru.job4j.forum.service.UserService;
 
 @Controller
 public class RegControl {
 
-    private final ForumService service;
+    private final UserService users;
 
-    public RegControl(ForumService service) {
-        this.service = service;
+    public RegControl(UserService users) {
+        this.users = users;
     }
 
     @PostMapping("/reg")
     public String regSave(@ModelAttribute User user) {
-        User user1 = service.getUser(user.getUsername());
+        User user1 = users.getUser(user.getUsername());
         if (user1 != null) {
             return "redirect:/reg?error=true&username=" + user.getUsername();
         }
-        service.save(user);
+        users.save(user);
         return "redirect:/login?reg=true";
     }
 

@@ -7,7 +7,7 @@ import ru.job4j.forum.repository.MemRepository;
 
 import java.util.List;
 
-@Service
+/*@Service*/
 public class ForumService {
 
     private final MemRepository repository;

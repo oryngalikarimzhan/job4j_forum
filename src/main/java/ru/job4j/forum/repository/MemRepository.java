@@ -11,7 +11,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Repository
+/*@Repository*/
 public class MemRepository {
     private final CopyOnWriteArrayList<Post> posts;
     private final CopyOnWriteArraySet<User> users;

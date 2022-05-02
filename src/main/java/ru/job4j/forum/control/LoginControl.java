@@ -8,13 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.service.ForumService;
+import ru.job4j.forum.service.UserService;
 
 @Controller
 public class LoginControl {
-    private final ForumService service;
+    private final UserService users;
 
-    public LoginControl(ForumService service) {
-        this.service = service;
+    public LoginControl(UserService users) {
+        this.users = users;
     }
 
     @GetMapping("/login")
@@ -40,7 +41,7 @@ public class LoginControl {
     public String authorize(HttpServletRequest request) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        User user = service.getUser(username);
+        User user = users.getUser(username);
         if (user == null || !password.equals(user.getPassword())) {
             return "redirect:/login?error=true";
         }
