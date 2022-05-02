@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.forum.model.User;
-import ru.job4j.forum.service.ForumService;
 import ru.job4j.forum.service.UserService;
 
 @Controller

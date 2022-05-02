@@ -1,5 +1,6 @@
 package ru.job4j.forum.control;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,9 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.job4j.forum.model.Comment;
 import ru.job4j.forum.model.Post;
-import ru.job4j.forum.model.User;
-import ru.job4j.forum.service.ForumService;
 import ru.job4j.forum.service.PostService;
+import ru.job4j.forum.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -20,8 +20,11 @@ public class PostControl {
 
     private final PostService posts;
 
-    public PostControl(PostService posts) {
+    private final UserService users;
+
+    public PostControl(PostService posts, UserService users) {
         this.posts = posts;
+        this.users = users;
     }
 
     @GetMapping("/post")
@@ -38,8 +41,9 @@ public class PostControl {
     @PostMapping("/save")
     public String save(@ModelAttribute Post post,
                        HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("user");
-        post.setUser(user);
+
+
+        post.setUser(users.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
         post.setCreated(new Date(System.currentTimeMillis()));
         posts.save(post);
         return "redirect:/";
@@ -65,7 +69,7 @@ public class PostControl {
                              HttpServletRequest request) {
         int postId = Integer.parseInt(request.getParameter("post-id"));
         Post post = posts.getPost(postId);
-        comment.setUser((User) request.getSession().getAttribute("user"));
+        comment.setUser(users.getUser(SecurityContextHolder.getContext().getAuthentication().getName()));
         post.addComment(comment);
         posts.save(post);
         return "redirect:/post?id=" + postId;

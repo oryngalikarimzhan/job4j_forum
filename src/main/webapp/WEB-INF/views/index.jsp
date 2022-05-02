@@ -59,15 +59,26 @@
                             <td><c:out value="${post.created}"/></td>
                             <td><c:out value="${post.user.username}"/></td>
                             <td>
-                                <button onclick="window.location.href=
-                                        '<c:url value='/edit?id=${post.id}'/>'"
-                                        style="width: 50px">
-                                    Edit
-                                </button>
-                                <button onclick="location.href='<c:url value='/delete?id=${post.id}'/>'"
-                                        style="width: 70px">
-                                    Delete
-                                </button>
+                                <c:if test="${post.user.username == user.username}">
+                                    <button onclick="window.location.href=
+                                            '<c:url value='/edit?id=${post.id}'/>'"
+                                            style="width: 50px">
+                                        Edit
+                                    </button>
+                                    <button onclick="location.href='<c:url value='/delete?id=${post.id}'/>'"
+                                            style="width: 70px">
+                                        Delete
+                                    </button>
+                                </c:if>
+                                <c:if test="${post.user.username != user.username}">
+                                    <button style="width: 50px" disabled>
+                                        Edit
+                                    </button>
+                                    <button style="width: 70px" disabled>
+                                        Delete
+                                    </button>
+                                </c:if>
+
                             </td>
                         </tr>
                     </c:forEach>
