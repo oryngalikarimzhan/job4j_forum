@@ -52,7 +52,7 @@
                     <c:forEach items="${posts}" var="post">
                         <tr>
                             <td>
-                                <a href="<c:url value="/post?id=${post.id}"/>">
+                                <a href="<c:url value="/post/${post.id}"/>">
                                     <c:out value="${post.name}"/>
                                 </a>
                             </td>
@@ -61,11 +61,11 @@
                             <td>
                                 <c:if test="${post.user.username == user.username}">
                                     <button onclick="window.location.href=
-                                            '<c:url value='/edit?id=${post.id}'/>'"
+                                            '<c:url value='/edit/${post.id}'/>'"
                                             style="width: 50px">
                                         Edit
                                     </button>
-                                    <button onclick="location.href='<c:url value='/delete?id=${post.id}'/>'"
+                                    <button onclick="location.href='<c:url value='/delete/${post.id}'/>'"
                                             style="width: 70px">
                                         Delete
                                     </button>

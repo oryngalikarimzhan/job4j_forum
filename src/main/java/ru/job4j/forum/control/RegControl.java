@@ -19,12 +19,12 @@ public class RegControl {
     }
 
     @PostMapping("/reg")
-    public String regSave(@ModelAttribute User user) {
-        User user1 = users.getUser(user.getUsername());
-        if (user1 != null) {
-            return "redirect:/reg?error=true&username=" + user.getUsername();
+    public String regSave(@ModelAttribute User newUser) {
+        User oldUser = users.getUser(newUser.getUsername());
+        if (oldUser != null) {
+            return "redirect:/reg?error=true&username=" + oldUser.getUsername();
         }
-        users.save(user);
+        users.save(newUser);
         return "redirect:/login?reg=true";
     }
 
@@ -34,7 +34,7 @@ public class RegControl {
                           Model model) {
         String message = null;
         if (error != null) {
-            message = "The user with this username = \"" + username + "\" is already exists";
+            message = "User with this username = \"" + username + "\" is already exists";
         }
         model.addAttribute("message", message);
         return "reg";

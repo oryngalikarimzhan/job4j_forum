@@ -23,7 +23,6 @@ public class PostService {
         return rsl;
     }
 
-
     public void save(Post post) {
         posts.save(post);
     }
